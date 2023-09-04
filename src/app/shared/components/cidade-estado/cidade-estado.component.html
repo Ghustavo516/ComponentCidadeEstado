@@ -2,12 +2,16 @@
   <div class="dx-field">
     <div class="dx-field-label">{{ labelEstado }}</div>
     <div class="dx-field-value">
+
       <dx-select-box
         [items]="estados"
+        [inputAttr]="{ 'aria-label': 'Product' }"
         displayExpr="Label"
         placeholder="Selecione Estado"
+        [value]="estadoPadraoSelecionado"
         (onValueChanged) = "onEstadoSelecionado($event)"
       ></dx-select-box>
+
     </div>
     <div class="dx-field-label">{{ labelCidade }}</div>
     <div class="dx-field-value">
@@ -16,6 +20,7 @@
         placeholder="Selecione Cidade"
         displayExpr="name"
         (onValueChanged) = "onCidadeSelecionada($event)"
+        [value]="estadoPadraoSelecionado"
       ></dx-select-box>
   </div>
 </div>

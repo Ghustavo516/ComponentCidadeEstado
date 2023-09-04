@@ -18,11 +18,17 @@ export class CidadeEstadoComponent implements OnInit{
   @Input() labelEstado?: string;
   @Input() labelCidade?: string;
 
-  @Output() estadoSelecionadoEvent = new EventEmitter<string>();
-  @Output() cidadeSelecionadaEvent = new EventEmitter<string>();
+  @Input() estadoPadrao?: number;
+  @Input() cidadePadrao?: number;
+
+  @Output() estadoSelecionadoValue = new EventEmitter<string>();
+  @Output() cidadeSelecionadaValue = new EventEmitter<string>();
 
   estadoSelecionado?: string;
   cidadeSelecionada?: string; 
+
+  estadoPadraoSelecionado ?: any[];
+  cidadePadraoSelecionado ?: any[];
 
   estados: any[] = [];
   municipios: any[] = [];
@@ -44,18 +50,22 @@ export class CidadeEstadoComponent implements OnInit{
         UF: estado.sigla,
         Label: estado.sigla + ' - ' + estado.nome
       }));
+  
+      if(this.estadoPadrao != null && this.estadoPadrao >= 0){
+        this.estadoPadraoSelecionado = this.estados[this.estadoPadrao]
+      }
     })
   }
 
   onCidadeSelecionada(event: any){
     this.cidadeSelecionada = event.value;
-    this.cidadeSelecionadaEvent.emit(this.cidadeSelecionada);
+    this.cidadeSelecionadaValue.emit(this.cidadeSelecionada);
   }
 
   onEstadoSelecionado(event: any){
     const estadoSelect = event.value;
     this.estadoSelecionado = event.value;
-    this.estadoSelecionadoEvent.emit(this.estadoSelecionado);
+    this.estadoSelecionadoValue.emit(this.estadoSelecionado);
     this.consultaMunicipios(estadoSelect)
   }
 
@@ -66,6 +76,10 @@ export class CidadeEstadoComponent implements OnInit{
         id: nomeMunicipio.id,
         name: nomeMunicipio.nome
       }));
+
+      if(this.cidadePadrao != null && this.cidadePadrao >= 0){
+        this.cidadePadraoSelecionado = this.estados[this.cidadePadrao]
+      }
     })
   } 
 }

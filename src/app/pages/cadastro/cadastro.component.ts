@@ -9,12 +9,17 @@ import { CidadeEstadoModule } from 'src/app/shared/components/cidade-estado/cida
 })
 export class CadastroComponent{
 
+  estadoSelect?: string
+  cidadeSelect?: string
+
   receberEstadoSelecionado(estadoSelecionado: any) {
     console.log('Estado Selecionado:', estadoSelecionado)
+    this.estadoSelect = estadoSelecionado.Label
   }
   
   receberCidadeSelecionada(cidadeSelecionada: any) {
     console.log('Cidade Selecionado:', cidadeSelecionada)
+    this.cidadeSelect = cidadeSelecionada.name
   }
 }
 
