@@ -44,24 +44,24 @@ export class CidadeEstadoComponent implements OnInit{
   }
 
   consultaEstado(){
+    //Metodo para obter os estados da API IBGE
     this.estadoService.getEstados().subscribe(data => {
       this.estados = data.map(estado => ({
         id: estado.id,
         UF: estado.sigla,
         Label: estado.sigla + ' - ' + estado.nome
       }));
-  
-      if(this.estadoPadrao != null && this.estadoPadrao >= 0){
-        this.estadoPadraoSelecionado = this.estados[this.estadoPadrao]
-      }
+      this.setEstado();
     })
   }
 
+  //Obtem a cidade que o usuário seleciona
   onCidadeSelecionada(event: any){
     this.cidadeSelecionada = event.value;
     this.cidadeSelecionadaValue.emit(this.cidadeSelecionada);
   }
 
+  //Obtem o estado que o usuário selecionou
   onEstadoSelecionado(event: any){
     const estadoSelect = event.value;
     this.estadoSelecionado = event.value;
@@ -69,6 +69,7 @@ export class CidadeEstadoComponent implements OnInit{
     this.consultaMunicipios(estadoSelect)
   }
 
+  //Obtem os municipios de um estado selecionado pelo usuário
   consultaMunicipios(estadoSelect:any){
     this.siglaUF = estadoSelect.UF;
     this.municipioEstadoService.getMunicipios(this.siglaUF).subscribe(data => {
@@ -76,14 +77,28 @@ export class CidadeEstadoComponent implements OnInit{
         id: nomeMunicipio.id,
         name: nomeMunicipio.nome
       }));
-
-      if(this.cidadePadrao != null && this.cidadePadrao >= 0){
-        this.cidadePadraoSelecionado = this.estados[this.cidadePadrao]
-      }
+      this.setCidadeEstado()
     })
   } 
+
+  setEstado(){
+    //Selecionar o estado padrão selecionada na definição do componente
+    if(this.estadoPadrao != null && this.estadoPadrao >= 0){
+      this.estadoPadraoSelecionado = this.estados[this.estadoPadrao]
+    }
+  }
+
+  setCidadeEstado(){
+    //Seleciona qual cidade padrão do estado foi definido no componente
+    if(this.cidadePadrao != null && this.cidadePadrao >= 0){
+      this.cidadePadraoSelecionado = this.municipios[this.cidadePadrao]
+      console.log(this.municipios)
+
+    }
+  }
 }
 
+//Modulo do componente
 @NgModule({
   imports: [
     CommonModule,

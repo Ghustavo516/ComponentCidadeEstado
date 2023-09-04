@@ -17,10 +17,12 @@
     <div class="dx-field-value">
       <dx-select-box
         [items]="municipios"
+        [inputAttr]="{ 'aria-label': 'Product' }"
         placeholder="Selecione Cidade"
         displayExpr="name"
+        [value]="cidadePadraoSelecionado"
         (onValueChanged) = "onCidadeSelecionada($event)"
-        [value]="estadoPadraoSelecionado"
+        
       ></dx-select-box>
   </div>
 </div>
