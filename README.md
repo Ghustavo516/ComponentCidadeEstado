@@ -13,7 +13,7 @@ Certifique-se de ter o Node.js e o Angular CLI instalados em sua máquina. Você
 
 1. **Clone o Repositório**
    ```bash
-   git clone https://github.com/seu-usuario/projeto-exemplo.git
+   git clone https://github.com/Ghustavo516/ComponentCidadeEstado.git
 
 2. Instale o pacote DevExtreme para o Angular executando o seguinte comando:
    ```bash
