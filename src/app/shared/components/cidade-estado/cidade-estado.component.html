@@ -1,0 +1,21 @@
+<div class="dx-fieldset">
+  <div class="dx-field">
+    <div class="dx-field-label">{{ labelEstado }}</div>
+    <div class="dx-field-value">
+      <dx-select-box
+        [items]="estados"
+        displayExpr="Label"
+        placeholder="Selecione Estado"
+        (onValueChanged) = "onEstadoSelecionado($event)"
+      ></dx-select-box>
+    </div>
+    <div class="dx-field-label">{{ labelCidade }}</div>
+    <div class="dx-field-value">
+      <dx-select-box
+        [items]="municipios"
+        placeholder="Selecione Cidade"
+        displayExpr="name"
+        (onValueChanged) = "onCidadeSelecionada($event)"
+      ></dx-select-box>
+  </div>
+</div>

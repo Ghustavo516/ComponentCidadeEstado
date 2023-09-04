@@ -1,0 +1,6 @@
+<h2 class="content-block">Cadastro</h2>
+
+<app-cidade-estado [labelEstado]="'Estado'" [labelCidade]="'Cidade'"
+    (estadoSelecionadoEvent)="receberEstadoSelecionado($event)"
+    (cidadeSelecionadaEvent)="receberCidadeSelecionada($event)"
+></app-cidade-estado>
