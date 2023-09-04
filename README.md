@@ -1,4 +1,4 @@
-# Projeto Exemplo
+# ComponentCidadeEstado
 
 Este é um projeto de exemplo que demonstra como usar o DevExtreme com o Angular. Para utilizá-lo, siga os passos abaixo:
 
