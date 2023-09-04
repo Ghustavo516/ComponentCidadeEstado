@@ -62,7 +62,8 @@ Para usar o ComponentCidadeEstado em seu projeto, você deve adicioná-lo a um c
   [labelCidade]="'Cidade'"
   (estadoSelecionadoValue)="receberEstadoSelecionado($event)"
   (cidadeSelecionadaValue)="receberCidadeSelecionada($event)"
-  [estadoPadrao]="8"
+  [estadoPadrao]="24"
+  [cidadePadrao]="636"
 ></app-cidade-estado>
 ```
 
@@ -74,7 +75,8 @@ Para usar o ComponentCidadeEstado em seu projeto, você deve adicioná-lo a um c
 
 - `(cidadeSelecionadaValue)`: Recebe o valor selecionado da cidade quando o usuário faz uma seleção no seletor de cidade. Implemente uma função para manipular esse valor.
 
-- `[estadoPadrao]`: Define o valor de estado padrão. Neste exemplo, o valor padrão é definido como 8 (GO - Goiás). Personalize-o conforme necessário.
+- `[estadoPadrao]`: Define o valor de estado padrão. Neste exemplo, o valor padrão é definido como 24 (SP - São Paulo). Personalize-o conforme necessário.
+- `[cidadePadrao]`: Define o valor de cidade padrão. Neste exemplo, o valor padrão é definido como 636 (Varzea Paulista)
 
 | id | UF | Label               |
 |----|----|---------------------|
