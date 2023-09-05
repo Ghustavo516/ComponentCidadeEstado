@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http'
 import { DxiFieldModule } from 'devextreme-angular/ui/nested';
 import { DxSelectBoxModule } from 'devextreme-angular';
 import { CidadeEstadoService } from '../../services/cidade-estado.service';
+import { Estado } from 'src/app/model/Estado';
+import { observeOn } from 'rxjs';
+import { Cidade } from 'src/app/model/Cidade';
 
 @Component({
   selector: 'app-cidade-estado',
@@ -27,10 +30,10 @@ export class CidadeEstadoComponent implements OnInit{
   estadoSelecionado?: string;
   cidadeSelecionada?: string; 
 
-  estadoPadraoSelecionado ?: any[];
+  estadoPadraoSelecionado ?: Estado;
   cidadePadraoSelecionado ?: any[];
 
-  estados: any[] = [];
+  estados: Estado[] = [];
   municipios: any[] = [];
   siglaUF: any;
 
@@ -46,26 +49,29 @@ export class CidadeEstadoComponent implements OnInit{
   consultaEstado(){
     //Metodo para obter os estados da API IBGE
     this.estadoService.getEstados().subscribe(data => {
-      this.estados = data.map(estado => ({
-        id: estado.id,
-        UF: estado.sigla,
-        Nome: estado.nome,
-        Label: estado.sigla + ' - ' + estado.nome
-      }));
-      this.setEstado();
+      this.estados = [];
+      for(let e of data){
+        this.estados.push(new Estado(e))
+      }
+      // this.setEstado();
+      console.log(this.estados);
     })
   }
 
   //Obtem os municipios de um estado selecionado pelo usuário
-  consultaMunicipios(estadoSelect:any){
-    this.siglaUF = estadoSelect.UF;
-    this.municipioEstadoService.getMunicipios(this.siglaUF).subscribe(data => {
-      this.municipios = data.map(nomeMunicipio => ({
-        id: nomeMunicipio.id,
-        name: nomeMunicipio.nome
-      }));
-      this.setCidadeEstado()
-    })
+  consultaMunicipios(estado:Estado){
+    if(estado.sigla){
+      this.municipioEstadoService.getMunicipios(estado.sigla).subscribe( data => {
+        this.municipios = [];
+        for(let m of data){
+          this.municipios.push(new Cidade(m))
+        }
+        console.log(this.municipios);
+
+        
+        //this.setCidadeEstado()
+      })
+    }
   } 
 
   //Obtem a cidade que o usuário seleciona
@@ -84,26 +90,23 @@ export class CidadeEstadoComponent implements OnInit{
 
   //Selecionar o estado padrão selecionada na definição do componente
   setEstado(){
-    if(this.estadoPadrao != null){
-      const valorIndice = this.estados.findIndex(estado => estado.UF === this.estadoPadrao)
-      if(valorIndice == -1){
-        alert("Estado não encontrado, por favor verifique o nome digitado e acentuação")
-      }else{
-        this.estadoPadraoSelecionado = this.estados[valorIndice]
-      }
-    }
+    // if(this.estadoPadrao != null){
+    //   const valorIndice = this.estados.findIndex(estado => estado.UF === this.estadoPadrao)
+    //   if(valorIndice == -1){
+    //     alert("Estado não encontrado, por favor verifique o nome digitado e acentuação")
+    //   }else{
+    //     this.estadoPadraoSelecionado = this.estados[valorIndice]
+    //   }
+    // }
   }
 
   //Seleciona qual cidade padrão do estado foi definido no componente
   setCidadeEstado(){
-    if(this.cidadePadrao != null){
-      const valorIndice = this.municipios.findIndex(municipio => municipio.name === this.cidadePadrao)
-      if(valorIndice == -1){
-        alert("Cidade não encontrada, por favor verifique o nome digitado e acentuação")
-      }else{
-        this.cidadePadraoSelecionado = this.municipios[valorIndice]
-      }
-    }
+    // if(this.cidadePadrao != null){
+    //   const valorIndice = this.municipios.findIndex(municipio => municipio.name === this.cidadePadrao)
+    //   const nomeCidade = this.municipios[valorIndice]
+    //   this.cidadePadraoSelecionado = nomeCidade
+    // }
   }
 }
 

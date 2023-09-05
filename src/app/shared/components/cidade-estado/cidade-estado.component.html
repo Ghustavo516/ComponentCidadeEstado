@@ -5,8 +5,7 @@
 
       <dx-select-box
         [items]="estados"
-        [inputAttr]="{ 'aria-label': 'Product' }"
-        displayExpr="Label"
+        displayExpr="getNameEstado"
         placeholder="Selecione Estado"
         [value]="estadoPadraoSelecionado"
         (onValueChanged) = "onEstadoSelecionado($event)"
@@ -19,7 +18,7 @@
         [items]="municipios"
         [inputAttr]="{ 'aria-label': 'Product' }"
         placeholder="Selecione Cidade"
-        displayExpr="name"
+        displayExpr="nome"
         [value]="cidadePadraoSelecionado"
         (onValueChanged) = "onCidadeSelecionada($event)"
         
