@@ -14,12 +14,12 @@ export class CadastroComponent{
 
   receberEstadoSelecionado(estadoSelecionado: any) {
     console.log('Estado Selecionado:', estadoSelecionado)
-    this.estadoSelect = estadoSelecionado.Label
+    this.estadoSelect = estadoSelecionado.nome
   }
   
   receberCidadeSelecionada(cidadeSelecionada: any) {
     console.log('Cidade Selecionado:', cidadeSelecionada)
-    this.cidadeSelect = cidadeSelecionada.name
+    this.cidadeSelect = cidadeSelecionada.nome
   }
 }
 

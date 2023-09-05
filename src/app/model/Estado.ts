@@ -1,5 +1,5 @@
 export class Estado {
-
+     //Estrutura de dados dos estados
     id?: number;
     sigla?: string;
     nome?: string;
@@ -12,6 +12,7 @@ export class Estado {
         }
     }
 
+    //Metodo para concatenar a sigla com o nome
     getNameEstado(){
         return this.sigla + " - " + this.nome
     }

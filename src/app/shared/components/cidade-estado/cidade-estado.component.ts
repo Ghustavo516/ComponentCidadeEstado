@@ -53,8 +53,7 @@ export class CidadeEstadoComponent implements OnInit{
       for(let e of data){
         this.estados.push(new Estado(e))
       }
-      // this.setEstado();
-      console.log(this.estados);
+      this.setEstado();
     })
   }
 
@@ -66,21 +65,18 @@ export class CidadeEstadoComponent implements OnInit{
         for(let m of data){
           this.municipios.push(new Cidade(m))
         }
-        console.log(this.municipios);
-
-        
-        //this.setCidadeEstado()
+        this.setCidadeEstado();
       })
     }
   } 
 
-  //Obtem a cidade que o usuário seleciona
+  //Obtem o nome da cidade e envia para o usuario
   onCidadeSelecionada(event: any){
     this.cidadeSelecionada = event.value;
     this.cidadeSelecionadaValue.emit(this.cidadeSelecionada);
   }
 
-  //Obtem o estado que o usuário selecionou
+  //Obtem o nome do estado e envia para o usuario
   onEstadoSelecionado(event: any){
     const estadoSelect = event.value;
     this.estadoSelecionado = event.value;
@@ -88,25 +84,25 @@ export class CidadeEstadoComponent implements OnInit{
     this.consultaMunicipios(estadoSelect)
   }
 
-  //Selecionar o estado padrão selecionada na definição do componente
+  //Seleciona automaticamente o nome do estado dentro do selectBoxEstado com base no valor padrão fornecido na definição do componente
   setEstado(){
-    // if(this.estadoPadrao != null){
-    //   const valorIndice = this.estados.findIndex(estado => estado.UF === this.estadoPadrao)
-    //   if(valorIndice == -1){
-    //     alert("Estado não encontrado, por favor verifique o nome digitado e acentuação")
-    //   }else{
-    //     this.estadoPadraoSelecionado = this.estados[valorIndice]
-    //   }
-    // }
+    if(this.estadoPadrao != null){
+      const valorIndice = this.estados.findIndex(estado => estado.sigla === this.estadoPadrao)
+      if(valorIndice == -1){
+        alert("Estado não encontrado, por favor verifique o nome digitado e acentuação")
+      }else{
+        this.estadoPadraoSelecionado = this.estados[valorIndice]
+      }
+    }
   }
 
-  //Seleciona qual cidade padrão do estado foi definido no componente
+  //Seleciona automaticamente o nome da cidade dentro do selectBoxCidade com base no valor padrão fornecido na definição do componente
   setCidadeEstado(){
-    // if(this.cidadePadrao != null){
-    //   const valorIndice = this.municipios.findIndex(municipio => municipio.name === this.cidadePadrao)
-    //   const nomeCidade = this.municipios[valorIndice]
-    //   this.cidadePadraoSelecionado = nomeCidade
-    // }
+    if(this.cidadePadrao != null){
+      const valorIndice = this.municipios.findIndex(nomeMunicipio =>  nomeMunicipio.nome === this.cidadePadrao)
+      const nomeCidade = this.municipios[valorIndice]
+      this.cidadePadraoSelecionado = nomeCidade
+    }
   }
 }
 

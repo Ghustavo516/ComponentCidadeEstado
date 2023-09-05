@@ -1,12 +1,12 @@
 <h2 class="content-block">Cadastro</h2>
 
 <app-cidade-estado 
-    [labelEstado]="'Estado'" 
-    [labelCidade]="'Cidade'"
+    labelEstado="Estado" 
+    labelCidade="Cidade"
     (estadoSelecionadoValue)="receberEstadoSelecionado($event)"
     (cidadeSelecionadaValue)="receberCidadeSelecionada($event)"
-    [estadoPadrao]="'SP'"
-    [cidadePadrao]="'Várzea Paulista'"
+    estadoPadrao="SP"
+    cidadePadrao="Várzea Paulista"
 ></app-cidade-estado>
 
 <p>Estado Selecionado: {{ estadoSelect }}</p>
