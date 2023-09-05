@@ -79,6 +79,9 @@ export class CidadeEstadoComponent implements OnInit{
     const estadoSelect = event.value;
     this.estadoSelecionadoValue.emit(estadoSelect);
     this.consultaMunicipios(estadoSelect)
+    this.cidadeSelecionadaValue.emit(''); //Limpa o selectBox Cidade ao trocar o estado
+
+
   }
 
   //Seleciona automaticamente o nome do estado dentro do selectBoxEstado com base no valor padrão fornecido na definição do componente

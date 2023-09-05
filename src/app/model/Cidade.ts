@@ -1,5 +1,5 @@
 export class Cidade {
-
+    //Estrutura de dados dos municipios
     id?: number;
     nome?: string;
 
