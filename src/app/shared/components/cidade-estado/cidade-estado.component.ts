@@ -18,8 +18,8 @@ export class CidadeEstadoComponent implements OnInit{
   @Input() labelEstado?: string;
   @Input() labelCidade?: string;
 
-  @Input() estadoPadrao?: number;
-  @Input() cidadePadrao?: number;
+  @Input() estadoPadrao?: String;
+  @Input() cidadePadrao?: string;
 
   @Output() estadoSelecionadoValue = new EventEmitter<string>();
   @Output() cidadeSelecionadaValue = new EventEmitter<string>();
@@ -49,11 +49,24 @@ export class CidadeEstadoComponent implements OnInit{
       this.estados = data.map(estado => ({
         id: estado.id,
         UF: estado.sigla,
+        Nome: estado.nome,
         Label: estado.sigla + ' - ' + estado.nome
       }));
       this.setEstado();
     })
   }
+
+  //Obtem os municipios de um estado selecionado pelo usuário
+  consultaMunicipios(estadoSelect:any){
+    this.siglaUF = estadoSelect.UF;
+    this.municipioEstadoService.getMunicipios(this.siglaUF).subscribe(data => {
+      this.municipios = data.map(nomeMunicipio => ({
+        id: nomeMunicipio.id,
+        name: nomeMunicipio.nome
+      }));
+      this.setCidadeEstado()
+    })
+  } 
 
   //Obtem a cidade que o usuário seleciona
   onCidadeSelecionada(event: any){
@@ -69,31 +82,27 @@ export class CidadeEstadoComponent implements OnInit{
     this.consultaMunicipios(estadoSelect)
   }
 
-  //Obtem os municipios de um estado selecionado pelo usuário
-  consultaMunicipios(estadoSelect:any){
-    this.siglaUF = estadoSelect.UF;
-    this.municipioEstadoService.getMunicipios(this.siglaUF).subscribe(data => {
-      this.municipios = data.map(nomeMunicipio => ({
-        id: nomeMunicipio.id,
-        name: nomeMunicipio.nome
-      }));
-      this.setCidadeEstado()
-    })
-  } 
-
+  //Selecionar o estado padrão selecionada na definição do componente
   setEstado(){
-    //Selecionar o estado padrão selecionada na definição do componente
-    if(this.estadoPadrao != null && this.estadoPadrao >= 0){
-      this.estadoPadraoSelecionado = this.estados[this.estadoPadrao]
+    if(this.estadoPadrao != null){
+      const valorIndice = this.estados.findIndex(estado => estado.UF === this.estadoPadrao)
+      if(valorIndice == -1){
+        alert("Estado não encontrado, por favor verifique o nome digitado e acentuação")
+      }else{
+        this.estadoPadraoSelecionado = this.estados[valorIndice]
+      }
     }
   }
 
+  //Seleciona qual cidade padrão do estado foi definido no componente
   setCidadeEstado(){
-    //Seleciona qual cidade padrão do estado foi definido no componente
-    if(this.cidadePadrao != null && this.cidadePadrao >= 0){
-      this.cidadePadraoSelecionado = this.municipios[this.cidadePadrao]
-      console.log(this.municipios)
-
+    if(this.cidadePadrao != null){
+      const valorIndice = this.municipios.findIndex(municipio => municipio.name === this.cidadePadrao)
+      if(valorIndice == -1){
+        alert("Cidade não encontrada, por favor verifique o nome digitado e acentuação")
+      }else{
+        this.cidadePadraoSelecionado = this.municipios[valorIndice]
+      }
     }
   }
 }
