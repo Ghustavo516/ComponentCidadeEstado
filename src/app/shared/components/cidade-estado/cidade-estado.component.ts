@@ -8,7 +8,6 @@ import { DxiFieldModule } from 'devextreme-angular/ui/nested';
 import { DxSelectBoxModule } from 'devextreme-angular';
 import { CidadeEstadoService } from '../../services/cidade-estado.service';
 import { Estado } from 'src/app/model/Estado';
-import { observeOn } from 'rxjs';
 import { Cidade } from 'src/app/model/Cidade';
 
 @Component({
@@ -31,11 +30,10 @@ export class CidadeEstadoComponent implements OnInit{
   cidadeSelecionada?: string; 
 
   estadoPadraoSelecionado ?: Estado;
-  cidadePadraoSelecionado ?: any[];
+  cidadePadraoSelecionado ?: Cidade;
 
   estados: Estado[] = [];
-  municipios: any[] = [];
-  siglaUF: any;
+  municipios: Cidade[] = [];
 
   constructor(
     private estadoService: CidadeEstadoService,
@@ -79,8 +77,7 @@ export class CidadeEstadoComponent implements OnInit{
   //Obtem o nome do estado e envia para o usuario
   onEstadoSelecionado(event: any){
     const estadoSelect = event.value;
-    this.estadoSelecionado = event.value;
-    this.estadoSelecionadoValue.emit(this.estadoSelecionado);
+    this.estadoSelecionadoValue.emit(estadoSelect);
     this.consultaMunicipios(estadoSelect)
   }
 
@@ -89,7 +86,7 @@ export class CidadeEstadoComponent implements OnInit{
     if(this.estadoPadrao != null){
       const valorIndice = this.estados.findIndex(estado => estado.sigla === this.estadoPadrao)
       if(valorIndice == -1){
-        alert("Estado não encontrado, por favor verifique o nome digitado e acentuação")
+        alert("Estado não encontrado, por favor verifique o nome digitado e acentuação!")
       }else{
         this.estadoPadraoSelecionado = this.estados[valorIndice]
       }
